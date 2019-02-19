@@ -1,0 +1,10 @@
+<ul>
+  <ng-template ngFor let-item [ngForOf]="menu">
+    <li *ngIf="item.url != currentUrl">
+      <a class="btn-link" [routerLink]="[item.url]">{{item.name}}</a>
+    </li>
+  </ng-template>
+  <li >
+    <span class="btn-link" (click)="logout()">Выход</span>
+  </li>
+</ul>
