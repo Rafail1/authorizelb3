@@ -35,7 +35,7 @@ module.exports = function (MyUser) {
                     to: email,
                     from: senderAddress,
                     subject: 'Восстановление пароля',
-                    html: 'Для восстановления пароля перейди по <a href="http://localhost:4200/password-reset/' + accessToken.id + '">ссылке</a>'
+                    html: 'Для восстановления пароля перейди по <a href="http://localhost:4200/auth/password-reset/' + accessToken.id + '">ссылке</a>'
                 }, function (err) {
                     if (err) {
                         if (err.responseCode === 554) {
@@ -130,7 +130,7 @@ module.exports = function (MyUser) {
         });
     };
     MyUser.remoteMethod('resend', {
-        accepts: {arg: 'email', type: 'string'},
+        accepts: {arg: 'email', type: 'string', http:{source:'body'}},
         returns: { type: 'object', root: true }
     });
     MyUser.remoteMethod('getMyRole', {
@@ -141,12 +141,12 @@ module.exports = function (MyUser) {
         returns: { type: 'object', root: true }
     });
     MyUser.remoteMethod('resetPasswordSend', {
-        accepts: {arg: 'email', type: 'string'},
+        accepts: {arg: 'email', type: 'string', http:{source:'body'}},
         returns: { type: 'object', root: true }
     });
 
     MyUser.remoteMethod('resetMyPassword', {
-        accepts: {arg: 'options', type: 'object'},
+        accepts: {arg: 'options', type: 'object', http:{source:'body'}},
         returns: { type: 'object', root: true }
     });
 
@@ -202,7 +202,7 @@ module.exports = function (MyUser) {
     return {
         to: user.email,
         from: senderAddress,
-        html: 'Для подтверждения регистрации перейдите по ссылке <a href="http://localhost:4200/confirm/{token}/{uid}">подтвердить</a>',
+        html: 'Для подтверждения регистрации перейдите по ссылке <a href="http://localhost:4200/auth/confirm/{token}/{uid}">подтвердить</a>',
         subject: 'Спасибо за регистрацию',
     }
 };
